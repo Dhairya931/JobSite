@@ -6,13 +6,13 @@ SUPABASE_KEY = os.getenv("SUPABASE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 def load_job_data():
-    response = supabase.table('try').select("job_id, job_title, company, required_skills, experience_required, job_description, location").execute()
+    response = supabase.table('jobs').select("job_id, job_title, company, required_skills, experience_required, job_description, location").execute()
     job_data = response.data
     job_data = [
         {
             "job_id": row["job_id"],
             "job_title": row["job_title"],
-            "company": row["company"],
+            "company_id": row["company_id"],
             "required_skills": row["required_skills"].split(","),
             "experience_required": int(row["experience_required"]),
             "job_description": row["job_description"],
