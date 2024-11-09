@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from models.job_recommender import create_job_recommender
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/recommend_jobs', methods=['POST'])
 def recommend_jobs():
@@ -14,4 +16,4 @@ def recommend_jobs():
     else:
         return jsonify([])
 if __name__ == '__main__':
-    app.run(host='0.0.0.0:5000')
+    app.run(host='0.0.0.0',port=5000)
