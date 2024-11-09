@@ -22,14 +22,12 @@ def create_job_recommender():
         # Compute job similarity scores
         similarity_scores = cosine_similarity(user_tfidf, job_tfidf_matrix).flatten()
         job_df['similarity_score'] = similarity_scores
-        # job_df['experience_match_percentage'] = ((job_df['experience_required'] - experience).abs() / job_df['experience_required']) * 100
-        # job_df['experience_match_percentage'] = job_df['experience_match_percentage'].round(2)
-        # job_df['score'] = (100 - job_df['experience_match_percentage']) * job_df['similarity_score']
+        
 
         # Filter and sort jobs by score
         top_jobs = job_df.sort_values('similarity_score', ascending=False).head(10)
 
         # Return top recommendations
-        return top_jobs[['job_id', 'job_title', 'company', 'required_skills', 'experience_required', 'similarity_score','job_description','location']].to_dict(orient='records')
+        return top_jobs[['job_id', 'job_title', 'company_id', 'required_skills', 'experience_required', 'similarity_score','job_description','location']].to_dict(orient='records')
 
     return recommend_jobs
